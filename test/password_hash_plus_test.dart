@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:password_hash_plus/password_hash_plus.dart';
+import 'package:test/test.dart';
 
 List<int> encodeBytes(String bytes) {
   final List<String> byteList = bytes.split(' ');
