@@ -1,2 +1,16 @@
 # password_hash_plus
-Hashes passwords using PBKDF2.
+
+[![pub package](https://img.shields.io/pub/v/password_hash_plus)](https://pub.dev/packages/password_hash_plus)
+
+> This plugin is a null-safety version of [password_hash](https://pub.dev/packages/password_hash), you can use it if you
+> need Flutter 2.x and above.
+
+Implements PBKDF2 algorithm for securely hashing passwords.
+
+Usage:
+
+```
+var generator = new PBKDF2();
+var salt = Salt.generateAsBase64String();
+var hash = generator.generateKey("mytopsecretpassword", salt, 1000, 32);
+```
