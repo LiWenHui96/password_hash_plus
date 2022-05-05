@@ -1,3 +1,7 @@
+## 3.0.3
+
+* Add `export 'package:crypto/crypto.dart';` to `lib/password_hash_plus.dart`
+
 ## 3.0.2
 
 * Add more detail to the `description` field of `pubspec.yaml`.

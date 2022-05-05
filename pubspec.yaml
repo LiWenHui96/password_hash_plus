@@ -1,5 +1,5 @@
 name: password_hash_plus
-version: 3.0.2
+version: 3.0.3
 description: PBKDF2 password hashing utility. This plugin is a null-safety version of password_hash, you can use it if you need Flutter 2.x and above.
 repository: https://github.com/LiWenHui96/password_hash_plus
 
