@@ -9,7 +9,8 @@ import 'dart:typed_data';
 
 /// Generates salts for hashing algorithms.
 class Salt {
-  /// Generates a random salt of [length] bytes from a cryptographically secure random number generator.
+  /// Generates a random salt of [length] bytes from a cryptographically secure
+  /// random number generator.
   ///
   /// Each element of this list is a byte.
   static List<int> generate(int length) {
@@ -21,9 +22,12 @@ class Salt {
     return buffer;
   }
 
-  /// Generates a random salt of [length] bytes from a cryptographically secure random number generator and encodes it to Base64.
+  /// Generates a random salt of [length] bytes from a cryptographically secure
+  /// random number generator and encodes it to Base64.
   ///
-  /// [length] is the number of bytes generated, not the [length] of the base64 encoded string returned. Decoding
+  /// [length] is the number of bytes generated, not the [length] of the base64
+  /// encoded string returned. Decoding
+  ///
   /// the base64 encoded string will yield [length] number of bytes.
   static String generateAsBase64String(int length) {
     const Base64Encoder encoder = Base64Encoder();

@@ -11,7 +11,7 @@ import 'salt.dart';
 /// @Author: LiWeNHuI
 /// @Date: 2022/5/1
 
-/// Instances of this type derive a key from a password, salt, and hash function.
+/// Instances of this type derive a key from a password, salt, and hash function
 ///
 /// https://en.wikipedia.org/wiki/PBKDF2
 class PBKDF2 {
@@ -38,9 +38,14 @@ class PBKDF2 {
   ///
   /// See [Salt.generateAsBase64String] for generating a random salt.
   ///
-  /// See also [generateBase64Key], which base64 encodes the key returned from this method for storage.
+  /// See also [generateBase64Key], which base64 encodes the key returned from
+  /// this method for storage.
   List<int> generateKey(
-      String password, String salt, int rounds, int keyLength) {
+    String password,
+    String salt,
+    int rounds,
+    int keyLength,
+  ) {
     if (keyLength > (pow(2, 32) - 1) * _blockSize) {
       throw PBKDF2Exception('Derived key too long');
     }
@@ -56,10 +61,11 @@ class PBKDF2 {
       ..buffer.asUint8List().setRange(0, saltBytes.length, saltBytes);
 
     for (int blockNumber = 1; blockNumber <= numberOfBlocks; blockNumber++) {
-      inputBuffer.setUint8(saltLength, blockNumber >> 24);
-      inputBuffer.setUint8(saltLength + 1, blockNumber >> 16);
-      inputBuffer.setUint8(saltLength + 2, blockNumber >> 8);
-      inputBuffer.setUint8(saltLength + 3, blockNumber);
+      inputBuffer
+        ..setUint8(saltLength, blockNumber >> 24)
+        ..setUint8(saltLength + 1, blockNumber >> 16)
+        ..setUint8(saltLength + 2, blockNumber >> 8)
+        ..setUint8(saltLength + 3, blockNumber);
 
       final Uint8List block =
           _XORDigestSink.generate(inputBuffer, hmac, rounds);
@@ -79,7 +85,11 @@ class PBKDF2 {
   ///
   /// This method invokes [generateKey] and base64 encodes the result.
   String generateBase64Key(
-      String password, String salt, int rounds, int keyLength) {
+    String password,
+    String salt,
+    int rounds,
+    int keyLength,
+  ) {
     const Base64Encoder converter = Base64Encoder();
 
     return converter.convert(generateKey(password, salt, rounds, keyLength));
@@ -99,7 +109,8 @@ class PBKDF2Exception implements Exception {
 class _XORDigestSink extends Sink<Digest> {
   _XORDigestSink(ByteData inputBuffer, Hmac hmac) {
     lastDigest = Uint8List.fromList(
-        hmac.convert(inputBuffer.buffer.asUint8List()).bytes);
+      hmac.convert(inputBuffer.buffer.asUint8List()).bytes,
+    );
     bytes = ByteData(lastDigest.length)
       ..buffer.asUint8List().setRange(0, lastDigest.length, lastDigest);
   }
@@ -110,9 +121,9 @@ class _XORDigestSink extends Sink<Digest> {
     // If rounds == 1, we have already run the first hash in the constructor
     // so this loop won't run.
     for (int round = 1; round < rounds; round++) {
-      final ByteConversionSink hmacSink = hmac.startChunkedConversion(hashSink);
-      hmacSink.add(hashSink.lastDigest);
-      hmacSink.close();
+      hmac.startChunkedConversion(hashSink)
+        ..add(hashSink.lastDigest)
+        ..close();
     }
 
     return hashSink.bytes.buffer.asUint8List();
