@@ -7,7 +7,16 @@
 
 Implements PBKDF2 algorithm for securely hashing passwords.
 
-Usage:
+## Preparing for use
+
+### Version constraints
+
+```yaml
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
+```
+
+## Usage:
 
 ```dart
 var generator = new PBKDF2();

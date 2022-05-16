@@ -1,3 +1,8 @@
+## 4.0.0
+
+* Migrate to Dart 2.17.0, drop supports for previous Dart versions.
+* Migrate to Flutter 3, drop supports for previous Flutter versions.
+
 ## 3.0.3
 
 * Add `export 'package:crypto/crypto.dart';` to `lib/password_hash_plus.dart`
